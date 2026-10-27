@@ -116,12 +116,22 @@
     .intro .mono { color: var(--accent); }
     .intro h1 {
       font-family: "Fraunces", serif; font-weight: 400;
-      font-size: 3.4rem; line-height: 1.05; margin: 12px 0 14px;
+      font-size: 3.4rem; line-height: 1.05; margin: 6px 0 14px;
     }
     .tagline { font-family: "Fraunces", serif; font-style: italic; font-size: 1.25rem; color: var(--muted); margin-bottom: 20px; }
     .links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; }
     .links a { font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
     .links a:hover { text-decoration: none; background: var(--accent-soft); }
+
+    /* ===== TRILINGUAL GREETING ===== */
+    .greet {
+      display: block;
+      font-family: "La Belle Aurore", cursive; font-weight: 400;
+      font-size: 1.9rem; line-height: 1; height: 2rem;
+      color: var(--accent);
+      margin-top: 16px;
+    }
+    .greet.writing { animation: write 1s ease-out both; }
 
     .photo-wrap { position: relative; width: 220px; height: 260px; }
     .photo-wrap::before {
@@ -143,13 +153,28 @@
     .pub-title { font-weight: 600; font-size: 1.05rem; line-height: 1.45; }
     .pub-authors { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
     .pub-venue { font-family: "Fraunces", serif; font-style: italic; font-size: 0.98rem; }
-    .pub-links { margin-top: 8px; display: flex; gap: 10px; }
-    .pub-links a {
+    .pub-links { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .pub-links a, .pub-links button {
       font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.06em;
       border: 1px solid var(--line); padding: 3px 10px; border-radius: 3px; color: var(--text);
+      background: none; cursor: pointer; line-height: 1.7;
     }
-    .pub-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .pub-links a:hover, .pub-links button:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .pub-links button[aria-expanded="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
     .me { color: var(--text); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+
+    /* ===== PLAIN-WORDS SUMMARY ===== */
+    .plain {
+      margin-top: 12px; padding: 10px 16px;
+      border-left: 2px solid var(--accent);
+      background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+      font-family: "Fraunces", serif; font-style: italic; font-size: 1rem; line-height: 1.6;
+      animation: fadeIn 0.35s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: none; }
+    }
 
     /* ===== CV ===== */
     .cv-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -183,6 +208,7 @@
       .intro { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; }
       .photo-wrap { order: -1; width: 160px; height: 190px; }
       .intro h1 { font-size: 2.5rem; }
+      .greet { font-size: 1.6rem; height: 1.7rem; }
       .nav-name { display: none; }
       .nav-inner { justify-content: center; }
       .nav-links { gap: 20px; }
@@ -191,6 +217,9 @@
       section { padding: 56px 0; }
       .section-head h2 { font-size: 1.7rem; }
       footer { flex-direction: column; gap: 6px; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .greet.writing, .plain { animation: none; }
     }
   </style>
 </head>
@@ -212,10 +241,11 @@
     <section id="intro" class="intro">
       <div>
         <div class="mono">PHD STUDENT · Uppsala University</div>
+        <span class="greet" lang="en">Hi!</span>
         <h1>Asya Bülbül</h1>
         <p class="tagline"></p>
         <p>
-          Hi! I'm a PhD student in the Department of Government at Uppsala University.
+          I'm a PhD student in the Department of Government at Uppsala University.
          I am a political psychologist studying voter–party dynamics, affective polarization, and political representation. I use methods ranging from integrative social science genomics to mixed-methods designs and survey experiments. I am also a part of the <a href="https://essgn.org/" target="_blank" rel="noopener">European Social Science Genetics Network (ESSGN)</a> as a Marie Skłodowska-Curie PhD candidate.
         </p>
         <div class="links">
@@ -240,7 +270,14 @@
           <div class="pub-title">Early-career-researcher-led best practices for social science and behavioural genetics</div>
           <div class="pub-authors">V.J. Straub, N.V. Harerimana, L.I.A. Alajääskö, ..., <span class="me">A. Bulbul</span>, ...</div>
           <div class="pub-venue">Nature Human Behaviour</div>
-          <div class="pub-links"><a href="https://doi-org.ezproxy.its.uu.se/10.1038/s41562-026-02469-6">PDF</a></div>
+          <div class="pub-links">
+            <a href="https://doi-org.ezproxy.its.uu.se/10.1038/s41562-026-02469-6">PDF</a>
+            <button class="plain-btn" aria-expanded="false" aria-controls="plain-1">IN PLAIN WORDS</button>
+          </div>
+          <p class="plain" id="plain-1" hidden>
+            <!-- Edit this summary in your own words -->
+            A group of early-career researchers sets out practical recommendations for how studies combining genetics and social science should be done well.
+          </p>
         </div>
       </div>
 
@@ -250,7 +287,14 @@
           <div class="pub-title">Varieties of democratic understanding and political participation: multi-level evidence from the world</div>
           <div class="pub-authors">K. Cinar, <span class="me">A. Bulbul</span></div>
           <div class="pub-venue">Contemporary Politics</div>
-          <div class="pub-links"><a href="https://doi-org.ezproxy.its.uu.se/10.1080/13569775.2021.2014630">PDF</a></div>
+          <div class="pub-links">
+            <a href="https://doi-org.ezproxy.its.uu.se/10.1080/13569775.2021.2014630">PDF</a>
+            <button class="plain-btn" aria-expanded="false" aria-controls="plain-2">IN PLAIN WORDS</button>
+          </div>
+          <p class="plain" id="plain-2" hidden>
+            <!-- Edit this summary in your own words -->
+            People around the world understand "democracy" in different ways, and these differences shape how, and how much, they take part in politics.
+          </p>
         </div>
       </div>
     </section>
@@ -275,6 +319,40 @@
   <footer>
     <span>Last updated: October 2026</span>
   </footer>
+
+  <script>
+    /* ===== Trilingual greeting: Hi! → Hej! → Merhaba! ===== */
+    const greetings = [
+      { text: "Hi!",      lang: "en" },
+      { text: "Hej!",     lang: "sv" },
+      { text: "Merhaba!", lang: "tr" }
+    ];
+    const greet = document.querySelector(".greet");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let g = 0;
+    if (greet && !calm) {
+      greet.classList.add("writing");
+      setInterval(() => {
+        g = (g + 1) % greetings.length;
+        greet.classList.remove("writing");
+        void greet.offsetWidth;            // restart the animation
+        greet.textContent = greetings[g].text;
+        greet.lang = greetings[g].lang;
+        greet.classList.add("writing");
+      }, 3000);
+    }
+
+    /* ===== "In plain words" toggles ===== */
+    document.querySelectorAll(".plain-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const box = document.getElementById(btn.getAttribute("aria-controls"));
+        const open = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!open));
+        btn.textContent = open ? "IN PLAIN WORDS" : "HIDE SUMMARY";
+        box.hidden = open;
+      });
+    });
+  </script>
 
 </body>
 </html>
