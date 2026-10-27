@@ -63,14 +63,15 @@
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
-      max-width: 880px; margin: 0 auto; padding: 16px 24px;
+      max-width: 880px; margin: 0 auto; padding: 10px 24px;
       display: flex; justify-content: space-between; align-items: center;
     }
     .nav-name {
       font-family: "La Belle Aurore", cursive;
       font-weight: 400;
-      font-size: 1.4rem;   /* made smaller (was 1.7rem) */
-      line-height: 1;
+      font-size: 1.4rem;
+      line-height: 1.5;               /* room for tall loops and tails */
+      padding: 0.15em 0.2em 0.1em;    /* keeps letters inside the reveal area */
       color: var(--ink);
       text-shadow: 0 0 0.6px var(--ink); /* slight ink bleed */
       display: inline-block;
@@ -84,6 +85,8 @@
       font-family: "La Belle Aurore", cursive;
       font-weight: 400;
       font-size: 1.25rem;
+      line-height: 1.5;
+      padding: 0.1em 0.15em;
       color: var(--ink);
       opacity: 0.75;
       display: inline-block;
@@ -127,12 +130,15 @@
     .greet {
       position: relative; display: block;
       font-family: "La Belle Aurore", cursive; font-weight: 400;
-      font-size: 1.9rem; line-height: 1; height: 2rem;
+      font-size: 1.9rem; height: 2.9rem;
       color: var(--accent);
-      margin-top: 16px;
+      margin-top: 10px;
     }
     .greet span {
-      position: absolute; left: 0; top: 0;
+      position: absolute; left: -0.2em; top: 0;
+      line-height: 1.5;
+      padding: 0 0.2em;
+      white-space: nowrap;
       opacity: 0;
       animation: greetCycle 9s infinite;
     }
@@ -221,7 +227,7 @@
       .intro { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; }
       .photo-wrap { order: -1; width: 160px; height: 190px; }
       .intro h1 { font-size: 2.5rem; }
-      .greet { font-size: 1.6rem; height: 1.7rem; }
+      .greet { font-size: 1.6rem; height: 2.5rem; }
       .nav-name { display: none; }
       .nav-inner { justify-content: center; }
       .nav-links { gap: 20px; }
