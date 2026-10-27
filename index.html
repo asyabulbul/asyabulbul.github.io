@@ -15,6 +15,8 @@
       --accent-soft: #dfe8e1; /* pale sage */
       --line: #e4e0d8;
       --ink: #141414;       /* handwriting ink */
+      --card: #fdfbf5;      /* catalogue card */
+      --card-line: rgba(45, 90, 67, 0.09);
     }
     @media (prefers-color-scheme: dark) {
       :root {
@@ -25,6 +27,8 @@
         --accent-soft: #1f2b24;
         --line: #2a2d2a;
         --ink: #ecebe6;
+        --card: #1b1e1b;
+        --card-line: rgba(127, 181, 150, 0.07);
       }
     }
 
@@ -136,17 +140,59 @@
       color: var(--muted); font-size: 0.85rem;
     }
 
-    /* ===== PUBLICATIONS ===== */
-    .pub { display: grid; grid-template-columns: 90px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
-    .pub:first-of-type { border-top: none; padding-top: 0; }
-    .pub-year { font-family: "Fraunces", serif; font-size: 1.6rem; color: var(--accent); line-height: 1.2; }
+    /* ===== PUBLICATIONS: library catalogue cards ===== */
+    .pub {
+      position: relative;
+      display: grid; grid-template-columns: 90px 1fr; gap: 24px;
+      padding: 24px 28px 40px;
+      margin-bottom: 26px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background:
+        linear-gradient(to bottom, transparent 54px, var(--accent) 54px,
+                        var(--accent) 55px, transparent 55px),
+        repeating-linear-gradient(to bottom, transparent 0 27px,
+                        var(--card-line) 27px 28px),
+        var(--card);
+      box-shadow: 0 1px 0 var(--line), 0 10px 22px -14px rgba(0, 0, 0, 0.35);
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pub:nth-of-type(odd)  { --tilt: -0.6deg; }
+    .pub:nth-of-type(even) { --tilt: 0.5deg; }
+    .pub:hover {
+      transform: rotate(0deg) translateY(-4px);
+      box-shadow: 0 1px 0 var(--line), 0 18px 30px -16px rgba(0, 0, 0, 0.4);
+    }
+
+    /* punched hole at the bottom, like a real catalogue card */
+    .pub::after {
+      content: ""; position: absolute; bottom: 12px; left: 50%;
+      width: 14px; height: 14px; margin-left: -7px; border-radius: 50%;
+      background: var(--bg);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* stacked call number, like a spine label */
+    .pub-call { color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+
+    /* year as a rubber stamp */
+    .pub-year {
+      display: inline-block; margin-top: 14px;
+      font-family: "JetBrains Mono", monospace; font-size: 0.9rem;
+      letter-spacing: 0.1em; color: var(--accent);
+      border: 2px solid var(--accent); border-radius: 3px;
+      padding: 1px 8px; transform: rotate(-8deg); opacity: 0.8;
+    }
+
     .pub-title { font-weight: 600; font-size: 1.05rem; line-height: 1.45; }
     .pub-authors { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
     .pub-venue { font-family: "Fraunces", serif; font-style: italic; font-size: 0.98rem; }
-    .pub-links { margin-top: 8px; display: flex; gap: 10px; }
+    .pub-links { margin-top: 10px; display: flex; gap: 10px; }
     .pub-links a {
       font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.06em;
       border: 1px solid var(--line); padding: 3px 10px; border-radius: 3px; color: var(--text);
+      background: var(--bg);
     }
     .pub-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
     .me { color: var(--text); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
@@ -186,11 +232,16 @@
       .nav-name { display: none; }
       .nav-inner { justify-content: center; }
       .nav-links { gap: 20px; }
-      .pub { grid-template-columns: 1fr; gap: 4px; }
-      .pub-year { font-size: 1.2rem; }
+      .pub { grid-template-columns: 1fr; gap: 10px; padding: 20px 20px 38px; }
+      .pub-side { display: flex; align-items: center; gap: 18px; }
+      .pub-call br { display: none; }
+      .pub-year { margin-top: 0; }
       section { padding: 56px 0; }
       .section-head h2 { font-size: 1.7rem; }
       footer { flex-direction: column; gap: 6px; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pub { transition: none; }
     }
   </style>
 </head>
@@ -235,7 +286,10 @@
       <div class="section-head"><span class="mono">01</span><h2>Publications</h2></div>
 
       <div class="pub">
-        <div class="pub-year">2026</div>
+        <div class="pub-side">
+          <div class="pub-call mono">QH <br>457 <br>.S77</div>
+          <div class="pub-year">2026</div>
+        </div>
         <div>
           <div class="pub-title">Early-career-researcher-led best practices for social science and behavioural genetics</div>
           <div class="pub-authors">V.J. Straub, N.V. Harerimana, L.I.A. Alajääskö, ..., <span class="me">A. Bulbul</span>, ...</div>
@@ -245,7 +299,10 @@
       </div>
 
       <div class="pub">
-        <div class="pub-year">2022</div>
+        <div class="pub-side">
+          <div class="pub-call mono">JF <br>799 <br>.C56</div>
+          <div class="pub-year">2022</div>
+        </div>
         <div>
           <div class="pub-title">Varieties of democratic understanding and political participation: multi-level evidence from the world</div>
           <div class="pub-authors">K. Cinar, <span class="me">A. Bulbul</span></div>
@@ -255,7 +312,6 @@
       </div>
     </section>
 
-    <!-- ========== 3. CV ========== -->
     <!-- ========== 3. CV ========== -->
     <section id="cv">
       <div class="section-head"><span class="mono">02</span><h2>Curriculum Vitae</h2></div>
@@ -277,6 +333,10 @@
     <span>© 2026 Asya Bulbul</span>
     <span>Last updated: October 2026</span>
   </footer>
+
+</body>
+</html>
+
 
 </body>
 </html>
