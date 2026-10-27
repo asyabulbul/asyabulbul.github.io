@@ -69,7 +69,7 @@
     .nav-name {
       font-family: "La Belle Aurore", cursive;
       font-weight: 400;
-      font-size: 1.7rem;
+      font-size: 1.4rem;   /* made smaller (was 1.7rem) */
       line-height: 1;
       color: var(--ink);
       text-shadow: 0 0 0.6px var(--ink); /* slight ink bleed */
@@ -123,15 +123,28 @@
     .links a { font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
     .links a:hover { text-decoration: none; background: var(--accent-soft); }
 
-    /* ===== TRILINGUAL GREETING ===== */
+    /* ===== TRILINGUAL GREETING (CSS only, no script needed) ===== */
     .greet {
-      display: block;
+      position: relative; display: block;
       font-family: "La Belle Aurore", cursive; font-weight: 400;
       font-size: 1.9rem; line-height: 1; height: 2rem;
       color: var(--accent);
       margin-top: 16px;
     }
-    .greet.writing { animation: write 1s ease-out both; }
+    .greet span {
+      position: absolute; left: 0; top: 0;
+      opacity: 0;
+      animation: greetCycle 9s infinite;
+    }
+    .greet span:nth-child(2) { animation-delay: 3s; }
+    .greet span:nth-child(3) { animation-delay: 6s; }
+    @keyframes greetCycle {
+      0%     { opacity: 1; clip-path: inset(0 100% 0 0); }
+      10%    { opacity: 1; clip-path: inset(0 0 0 0); }
+      30%    { opacity: 1; clip-path: inset(0 0 0 0); }
+      33.33% { opacity: 0; }
+      100%   { opacity: 0; }
+    }
 
     .photo-wrap { position: relative; width: 220px; height: 260px; }
     .photo-wrap::before {
@@ -219,7 +232,7 @@
       footer { flex-direction: column; gap: 6px; text-align: center; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .greet.writing, .plain { animation: none; }
+      .plain { animation: none; }
     }
   </style>
 </head>
@@ -241,7 +254,11 @@
     <section id="intro" class="intro">
       <div>
         <div class="mono">PHD STUDENT · Uppsala University</div>
-        <span class="greet" lang="en">Hi!</span>
+        <span class="greet">
+          <span lang="en">Hi!</span>
+          <span lang="sv">Hej!</span>
+          <span lang="tr">Merhaba!</span>
+        </span>
         <h1>Asya Bülbül</h1>
         <p class="tagline"></p>
         <p>
@@ -321,27 +338,6 @@
   </footer>
 
   <script>
-    /* ===== Trilingual greeting: Hi! → Hej! → Merhaba! ===== */
-    const greetings = [
-      { text: "Hi!",      lang: "en" },
-      { text: "Hej!",     lang: "sv" },
-      { text: "Merhaba!", lang: "tr" }
-    ];
-    const greet = document.querySelector(".greet");
-    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let g = 0;
-    if (greet && !calm) {
-      greet.classList.add("writing");
-      setInterval(() => {
-        g = (g + 1) % greetings.length;
-        greet.classList.remove("writing");
-        void greet.offsetWidth;            // restart the animation
-        greet.textContent = greetings[g].text;
-        greet.lang = greetings[g].lang;
-        greet.classList.add("writing");
-      }, 3000);
-    }
-
     /* ===== "In plain words" toggles ===== */
     document.querySelectorAll(".plain-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
