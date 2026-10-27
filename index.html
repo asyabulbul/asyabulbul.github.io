@@ -4,147 +4,146 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asya Bulbul</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     /* ===== COLORS: change these to restyle the whole site ===== */
     :root {
-      --bg: #f3f8f2;          /* page background (very light green) */
-      --text: #17301f;        /* main text */
-      --muted: #4f6b57;       /* softer text */
-      --accent: #2f8f4e;      /* main green: links, buttons */
-      --accent-2: #8cc63f;    /* bright lime for highlights */
-      --deep: #1d4d2f;        /* dark green: menu bar */
-      --soft: #e1f0dc;        /* mint: cards and intro */
-      --line: #cfe3c8;        /* lines and borders */
-      --card: #ffffff;
+      --bg: #faf8f4;        /* paper white */
+      --text: #1c1f1d;      /* near black */
+      --muted: #6a6f6b;     /* grey text */
+      --accent: #2d5a43;    /* deep forest green */
+      --accent-soft: #dfe8e1; /* pale sage */
+      --line: #e4e0d8;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0f1a13;
-        --text: #e3f1e4;
-        --muted: #9fbca6;
-        --accent: #5fcf80;
-        --accent-2: #b4e36a;
-        --deep: #0a2414;
-        --soft: #17291d;
-        --line: #24402c;
-        --card: #13231a;
+        --bg: #141614;
+        --text: #e9e7e2;
+        --muted: #9a9f9b;
+        --accent: #7fb596;
+        --accent-soft: #1f2b24;
+        --line: #2a2d2a;
       }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg); color: var(--text);
       font-family: "Inter", system-ui, sans-serif;
-      line-height: 1.65;
-      font-size: 17px;
+      font-size: 17px; line-height: 1.7;
     }
     a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .mono { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.08em; }
 
     /* ===== TOP MENU ===== */
     nav {
       position: sticky; top: 0; z-index: 10;
-      background: var(--deep);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
     }
     .nav-inner {
-      max-width: 860px; margin: 0 auto; padding: 16px 20px;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      max-width: 880px; margin: 0 auto; padding: 16px 24px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .nav-name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; color: #ffffff; }
+    .nav-name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.1rem; color: var(--text); }
+    .nav-name span { color: var(--accent); }
     .nav-name:hover { text-decoration: none; }
-    .nav-links { display: flex; gap: 22px; }
-    .nav-links a { color: #d6ecd2; font-weight: 500; font-size: 0.95rem; }
-    .nav-links a:hover { color: var(--accent-2); text-decoration: none; }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a { color: var(--muted); font-size: 0.92rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
 
-    main { max-width: 860px; margin: 0 auto; padding: 0 20px; }
-    section { padding: 64px 0; scroll-margin-top: 64px; }
-    h2 {
-      font-family: "Fraunces", serif; font-weight: 600;
-      font-size: 1.9rem; margin-bottom: 28px; color: var(--deep);
-      display: inline-block; border-bottom: 4px solid var(--accent-2); padding-bottom: 4px;
-    }
-    @media (prefers-color-scheme: dark) { h2 { color: var(--accent); } }
-    h3 { font-weight: 600; margin: 32px 0 12px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.85rem; }
+    main { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; scroll-margin-top: 64px; }
+
+    /* Numbered section titles */
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; }
+    .section-head .mono { color: var(--accent); }
+    .section-head h2 { font-family: "Fraunces", serif; font-weight: 400; font-size: 2.1rem; }
+    .section-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
     /* ===== INTRO ===== */
-    .intro {
-      display: flex; gap: 40px; align-items: center;
-      margin-top: 40px; padding: 48px 40px;
-      background: linear-gradient(135deg, var(--soft), var(--bg));
-      border: 1px solid var(--line);
-      border-radius: 24px;
+    .intro { display: grid; grid-template-columns: 1fr 220px; gap: 56px; align-items: center; padding-top: 100px; }
+    .intro .mono { color: var(--accent); }
+    .intro h1 {
+      font-family: "Fraunces", serif; font-weight: 400;
+      font-size: 3.4rem; line-height: 1.05; margin: 12px 0 14px;
+    }
+    .tagline { font-family: "Fraunces", serif; font-style: italic; font-size: 1.25rem; color: var(--muted); margin-bottom: 20px; }
+    .links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 26px; }
+    .links a { font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
+    .links a:hover { text-decoration: none; background: var(--accent-soft); }
+
+    .photo-wrap { position: relative; width: 220px; height: 260px; }
+    .photo-wrap::before {
+      content: ""; position: absolute; inset: 0;
+      transform: translate(14px, 14px);
+      border: 2px solid var(--accent); border-radius: 4px;
     }
     .photo {
-      width: 180px; height: 180px; flex-shrink: 0; border-radius: 50%;
-      background: var(--line); object-fit: cover;
-      border: 5px solid var(--accent);
+      position: relative; width: 100%; height: 100%; object-fit: cover;
+      border-radius: 4px; background: var(--accent-soft);
       display: flex; align-items: center; justify-content: center;
       color: var(--muted); font-size: 0.85rem;
     }
-    .intro h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: 2.6rem; line-height: 1.15; color: var(--deep); }
-    @media (prefers-color-scheme: dark) { .intro h1 { color: var(--text); } }
-    .role { color: var(--accent); font-weight: 600; margin: 6px 0 16px; }
-    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-    .links a {
-      background: var(--accent); color: #ffffff;
-      padding: 7px 16px; border-radius: 999px; font-size: 0.9rem; font-weight: 500;
-    }
-    .links a:hover { background: var(--deep); text-decoration: none; }
 
     /* ===== PUBLICATIONS ===== */
-    .pub {
-      background: var(--soft);
-      border-left: 5px solid var(--accent);
-      border-radius: 12px;
-      padding: 18px 22px; margin-bottom: 14px;
-    }
-    .pub-title { font-weight: 600; }
-    .pub-authors { color: var(--muted); font-size: 0.95rem; }
-    .pub-venue { font-style: italic; font-size: 0.95rem; }
-    .pub-links { margin-top: 8px; font-size: 0.85rem; display: flex; gap: 8px; }
+    .pub { display: grid; grid-template-columns: 90px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+    .pub:first-of-type { border-top: none; padding-top: 0; }
+    .pub-year { font-family: "Fraunces", serif; font-size: 1.6rem; color: var(--accent); line-height: 1.2; }
+    .pub-title { font-weight: 600; font-size: 1.05rem; line-height: 1.45; }
+    .pub-authors { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+    .pub-venue { font-family: "Fraunces", serif; font-style: italic; font-size: 0.98rem; }
+    .pub-links { margin-top: 8px; display: flex; gap: 10px; }
     .pub-links a {
-      background: var(--card); border: 1px solid var(--line);
-      padding: 2px 10px; border-radius: 6px; font-weight: 600;
+      font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.06em;
+      border: 1px solid var(--line); padding: 3px 10px; border-radius: 3px; color: var(--text);
     }
-    .pub-links a:hover { border-color: var(--accent); text-decoration: none; }
-    .me { color: var(--text); font-weight: 600; }
+    .pub-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .me { color: var(--text); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
 
     /* ===== CV ===== */
+    .cv-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+    .cv-top p { color: var(--muted); }
     .cv-download {
-      display: inline-block; background: var(--accent); color: #fff;
-      padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
+      background: var(--accent); color: var(--bg);
+      padding: 10px 20px; border-radius: 3px; font-weight: 600; font-size: 0.92rem;
     }
-    .cv-download:hover { text-decoration: none; background: var(--deep); }
-    .cv-box {
-      background: var(--card); border: 1px solid var(--line);
-      border-radius: 16px; padding: 8px 24px 20px; margin-top: 24px;
+    .cv-download:hover { text-decoration: none; opacity: 0.88; }
+    .cv-group { margin-top: 36px; }
+    .cv-group h3 { margin-bottom: 14px; color: var(--accent); font-weight: 500; }
+    .timeline { border-left: 1px solid var(--line); margin-left: 6px; }
+    .entry { position: relative; padding: 0 0 22px 28px; }
+    .entry::before {
+      content: ""; position: absolute; left: -6px; top: 7px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--accent);
     }
-    .entry { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 10px 0; border-top: 1px dashed var(--line); }
-    h3 + .entry { border-top: none; }
-    .entry-date { color: var(--accent); font-weight: 600; font-size: 0.95rem; }
+    .entry-date { color: var(--muted); font-size: 0.9rem; }
     .entry-title { font-weight: 600; }
     .entry-place { color: var(--muted); font-size: 0.95rem; }
 
     footer {
-      text-align: center; color: #d6ecd2; background: var(--deep);
-      font-size: 0.85rem; padding: 28px 20px; margin-top: 40px;
+      max-width: 880px; margin: 0 auto; padding: 32px 24px 48px;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem;
     }
 
     /* ===== PHONES ===== */
-    @media (max-width: 640px) {
-      .intro { flex-direction: column; text-align: center; padding: 32px 20px; gap: 24px; margin-top: 24px; }
-      .links { justify-content: center; }
-      .intro h1 { font-size: 2.1rem; }
-      .nav-links { gap: 14px; }
+    @media (max-width: 680px) {
+      .intro { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; }
+      .photo-wrap { order: -1; width: 160px; height: 190px; }
+      .intro h1 { font-size: 2.5rem; }
       .nav-name { display: none; }
       .nav-inner { justify-content: center; }
-      .entry { grid-template-columns: 1fr; gap: 2px; }
-      .cv-box { padding: 8px 16px 16px; }
-      section { padding: 48px 0; }
+      .nav-links { gap: 20px; }
+      .pub { grid-template-columns: 1fr; gap: 4px; }
+      .pub-year { font-size: 1.2rem; }
+      section { padding: 56px 0; }
+      .section-head h2 { font-size: 1.7rem; }
+      footer { flex-direction: column; gap: 6px; text-align: center; }
     }
   </style>
 </head>
@@ -152,7 +151,7 @@
 
   <nav>
     <div class="nav-inner">
-      <a href="#intro" class="nav-name">Asya Bulbul</a>
+      <a href="#intro" class="nav-name">Asya Bulbul<span>.</span></a>
       <div class="nav-links">
         <a href="#intro">About</a>
         <a href="#publications">Publications</a>
@@ -165,17 +164,14 @@
 
     <!-- ========== 1. INTRO ========== -->
     <section id="intro" class="intro">
-      <!-- To add your photo: upload a file named photo.jpg to your repository,
-           then replace the <div> below with:  <img src="photo.jpg" class="photo" alt="Asya Bulbul"> -->
-      <div class="photo">Your photo</div>
-
       <div>
+        <div class="mono">PHD STUDENT · YOUR UNIVERSITY</div>
         <h1>Asya Bulbul</h1>
-        <div class="role">PhD Student, Department of Your Field, Your University</div>
+        <p class="tagline">Researching your topic and another topic.</p>
         <p>
-          Hi! I'm a researcher interested in <strong>your research topic</strong> and
-          <strong>another topic</strong>. Write two or three sentences here about what you
-          study, what questions excite you, and what you're working on right now.
+          Hi! I'm a researcher in the Department of Your Field at Your University.
+          Write two or three sentences here about what you study, the questions that
+          excite you, and what you're working on right now.
         </p>
         <div class="links">
           <a href="mailto:you@example.com">Email</a>
@@ -184,78 +180,115 @@
           <a href="https://github.com/asyabulbul" target="_blank">GitHub</a>
         </div>
       </div>
+
+      <div class="photo-wrap">
+        <!-- To add your photo: upload a file named photo.jpg to your repository,
+             then replace the <div> below with:  <img src="photo.jpg" class="photo" alt="Asya Bulbul"> -->
+        <div class="photo">Your photo</div>
+      </div>
     </section>
 
     <!-- ========== 2. PUBLICATIONS ========== -->
     <section id="publications">
-      <h2>Publications</h2>
+      <div class="section-head"><span class="mono">01</span><h2>Publications</h2></div>
 
       <!-- Copy one <div class="pub"> block for each publication -->
       <div class="pub">
-        <div class="pub-title">Title of Your First Paper Goes Here</div>
-        <div class="pub-authors"><span class="me">A. Bulbul</span>, B. Coauthor, C. Coauthor</div>
-        <div class="pub-venue">Journal or Conference Name, 2026</div>
-        <div class="pub-links"><a href="#">PDF</a><a href="#">DOI</a></div>
+        <div class="pub-year">2026</div>
+        <div>
+          <div class="pub-title">Title of Your First Paper Goes Here</div>
+          <div class="pub-authors"><span class="me">A. Bulbul</span>, B. Coauthor, C. Coauthor</div>
+          <div class="pub-venue">Journal or Conference Name</div>
+          <div class="pub-links"><a href="#">PDF</a><a href="#">DOI</a></div>
+        </div>
       </div>
 
       <div class="pub">
-        <div class="pub-title">Title of Your Second Paper Goes Here</div>
-        <div class="pub-authors">D. Coauthor, <span class="me">A. Bulbul</span></div>
-        <div class="pub-venue">Journal or Conference Name, 2025</div>
-        <div class="pub-links"><a href="#">PDF</a><a href="#">DOI</a></div>
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Title of Your Second Paper Goes Here</div>
+          <div class="pub-authors">D. Coauthor, <span class="me">A. Bulbul</span></div>
+          <div class="pub-venue">Journal or Conference Name</div>
+          <div class="pub-links"><a href="#">PDF</a><a href="#">DOI</a></div>
+        </div>
       </div>
 
       <div class="pub">
-        <div class="pub-title">Title of Your Third Paper Goes Here</div>
-        <div class="pub-authors"><span class="me">A. Bulbul</span>, E. Coauthor</div>
-        <div class="pub-venue">Workshop or Journal Name, 2024</div>
-        <div class="pub-links"><a href="#">PDF</a></div>
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">Title of Your Third Paper Goes Here</div>
+          <div class="pub-authors"><span class="me">A. Bulbul</span>, E. Coauthor</div>
+          <div class="pub-venue">Workshop or Journal Name</div>
+          <div class="pub-links"><a href="#">PDF</a></div>
+        </div>
       </div>
     </section>
 
     <!-- ========== 3. CV ========== -->
     <section id="cv">
-      <h2>CV</h2>
-      <br>
-      <!-- To make this button work: upload your CV as cv.pdf to your repository -->
-      <a href="cv.pdf" class="cv-download" target="_blank">Download full CV (PDF)</a>
+      <div class="section-head"><span class="mono">02</span><h2>Curriculum Vitae</h2></div>
 
-      <div class="cv-box">
-        <h3>Education</h3>
-        <div class="entry">
-          <div class="entry-date">2024 – present</div>
-          <div><div class="entry-title">PhD in Your Field</div><div class="entry-place">Your University</div></div>
-        </div>
-        <div class="entry">
-          <div class="entry-date">2022 – 2024</div>
-          <div><div class="entry-title">MSc in Your Field</div><div class="entry-place">Your University</div></div>
-        </div>
-        <div class="entry">
-          <div class="entry-date">2018 – 2022</div>
-          <div><div class="entry-title">BSc in Your Field</div><div class="entry-place">Your University</div></div>
-        </div>
+      <div class="cv-top">
+        <p>A short overview. The full version is available as a PDF.</p>
+        <!-- To make this button work: upload your CV as cv.pdf to your repository -->
+        <a href="cv.pdf" class="cv-download" target="_blank">Download CV ↓</a>
+      </div>
 
-        <h3>Experience</h3>
-        <div class="entry">
-          <div class="entry-date">2024 – present</div>
-          <div><div class="entry-title">Research Assistant</div><div class="entry-place">Lab or Group Name</div></div>
+      <div class="cv-group">
+        <h3 class="mono">EDUCATION</h3>
+        <div class="timeline">
+          <div class="entry">
+            <div class="entry-date">2024 – present</div>
+            <div class="entry-title">PhD in Your Field</div>
+            <div class="entry-place">Your University</div>
+          </div>
+          <div class="entry">
+            <div class="entry-date">2022 – 2024</div>
+            <div class="entry-title">MSc in Your Field</div>
+            <div class="entry-place">Your University</div>
+          </div>
+          <div class="entry">
+            <div class="entry-date">2018 – 2022</div>
+            <div class="entry-title">BSc in Your Field</div>
+            <div class="entry-place">Your University</div>
+          </div>
         </div>
-        <div class="entry">
-          <div class="entry-date">Summer 2023</div>
-          <div><div class="entry-title">Intern</div><div class="entry-place">Company or Institute Name</div></div>
-        </div>
+      </div>
 
-        <h3>Awards</h3>
-        <div class="entry">
-          <div class="entry-date">2025</div>
-          <div><div class="entry-title">Name of Award or Scholarship</div><div class="entry-place">Who gave it</div></div>
+      <div class="cv-group">
+        <h3 class="mono">EXPERIENCE</h3>
+        <div class="timeline">
+          <div class="entry">
+            <div class="entry-date">2024 – present</div>
+            <div class="entry-title">Research Assistant</div>
+            <div class="entry-place">Lab or Group Name</div>
+          </div>
+          <div class="entry">
+            <div class="entry-date">Summer 2023</div>
+            <div class="entry-title">Intern</div>
+            <div class="entry-place">Company or Institute Name</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-group">
+        <h3 class="mono">AWARDS</h3>
+        <div class="timeline">
+          <div class="entry">
+            <div class="entry-date">2025</div>
+            <div class="entry-title">Name of Award or Scholarship</div>
+            <div class="entry-place">Who gave it</div>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer>© 2026 Asya Bulbul</footer>
+  <footer>
+    <span>© 2026 Asya Bulbul</span>
+    <span>Last updated: October 2026</span>
+  </footer>
 
 </body>
 </html>
